@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Train Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <script src="/Users/obi/Desktop/train-time/logic.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/Users/obi/Desktop/train-time/webfontkit-20190907-030555/stylesheet.css"
+      type="text/css"
+      charset="utf-8"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+
+    <style type="text/css">
+      .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+
+      /* On mouse-over, add a deeper shadow */
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      /* Add some padding inside the card container */
+      .container {
+        padding: 1px 4px;
+        /* text-align: left; */
+        margin: 2px;
+      }
+
+      #titleText {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        margin: 30px;
+        text-align: left;
+      }
+
+      #tableContainer {
+        padding: 20px;
+        width: 70%;
+        position: relative;
+        left: 307px;
+      }
+
+      .addTrain {
+        padding: 50px;
+      }
+
+      h2 {
+        font-family:'google_sansmedium'; 
+        font-size: 40px;
+        font-style:oblique;
+        text-decoration: underline;
+      }
+
+      h3 {
+        font-family:'google_sansmedium'; 
+        margin: 30px;
+        text-align: left;
+        font-size: 25px;
+        position: relative;
+      }
+
+      .brand-logo {
+        margin: 0px;
+        padding: 0px;
+        left: 17px;
+        font-family:'google_sansmedium'; 
+        
+      }
+
+      body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        font-family:'google_sansmedium'; 
+      }
+
+      main {
+        flex: 1 0 auto;
+      }
+
+      #addTrainBtn{
+        font-family:'google_sansmedium'; 
+        background-color:#ef6e73;
+      }
+
+      #first_h2{
+        margin: 30px;
+        /* text-decoration: none; */
+        text-align: center;
+        font-style: normal;
+        font-weight: bold;
+      }
+
+      .card-panel{
+        background-color: #ef6e73;
+        position: relative;
+        left: -500px;
+        top: 35px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Train Time</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Page1</a></li>
+            <li><a href="badges.html">Page2</a></li>
+            <li><a href="collapsible.html">Coming soon</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m5">
+        <div class="card-panel">
+          <span class="white-text"
+            >Powered by Firebase. Give it a try!
+          </span>
+        </div>
+      </div>
+    </div>
+<br>
+<h2 id="first_h2">Train Schedule</h2>
+<div class="container">
+    <div class="card-panel white" id="tableContainer">
+      <table class="table" id="trainTable">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Train Name</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Frequency (min)</th>
+            <th scope="col">Next Arrival</th>
+            <th scope="col">Minutes Away</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="addTrain">
+      <form>
+        <h2>add a train</h2>
+        <div class="form-group">
+        <label for="">Train Name</label>
+        <input type="text" class="form-control" id= "trainNameInput"/>
+      </div>
+        <div class="form-group">
+        <label for="">Destination</label>
+        <input type="text" class="form-control" id= "destinationInput"/>
+      </div>
+        <div class="form-group">
+        <label for="">First Train (HH:mm - Military Time)</label>
+        <input type="text" class="form-control" id= "firstTrainInput" />
+      </div>
+        <div class="form-group">
+        <label for="">Frequency (Min)</label>
+        <input type="text" class="form-control" id= "frequencyInput" />
+      </div>
+        <button type="submit" class="btn btn-primary" id="addTrainBtn">Submit!</button>
+      </form>
+    </div>
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Footer Content</h5>
+            <p class="grey-text text-lighten-4">
+              You can use rows and columns here to organize your footer content.
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          © 2014 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-database.js"></script>
+
+
+  <script type="text/javascript">
+var config = {
+      apiKey: "AIzaSyDEhVe8KfhwahxklMUTtUK-lRO2KoKnaDg",
+      authDomain: "traintime-dfab9.firebaseapp.com",
+      databaseURL: "https://traintime-dfab9.firebaseio.com",
+      projectId: "traintime-dfab9",
+      storageBucket: "",
+      messagingSenderId: "405666110252",
+      appId: "1:405666110252:web:4be81ba2b9c69221f46a89"
+    };
+    
+    firebase.initializeApp(config);
+    
+    var trainData = firebase.database();
+  
+  $("#addTrainBtn").on("click", function() {
+  var trainName = $("#trainNameInput")
+    .val()
+    .trim();
+    
+  var destination = $("#destinationInput")
+    .val()
+    .trim();
+  var firstTrain = moment(
+    $("#firstTrainInput")
+      .val()
+      .trim(),
+    "HH:mm"
+  )
+    .subtract(10, "years")
+    .format("X");
+  var frequency = $("#frequencyInput")
+    .val()
+    .trim();
+
+    var newTrain = {
+      name: trainName,
+      destination: destination,
+      firstTrain: firstTrain,
+      frequency: frequency
+    }
+
+  trainData.ref().push(newTrain);
+
+  alert("Train Added!");
+
+  $("#trainNameInput").val("");
+  $("#destinationInput").val("");
+  $("#firstTrainInput").val("");
+  $("#frequencyInput").val("");
+
+  return false;
+})
+
+trainData.ref().on("child_added", function(snapshot){
+  var name = snapshot.val().name;
+  var destination = snapshot.val().destination;
+  var frequency = snapshot.val().frequency;
+  var firstTrain = snapshot.val().firstTrain;
+
+  var remainder = moment().diff(moment.unix(firstTrain),"minutes")%frequency;
+  var minutes = frequency - remainder;
+  var arrival = moment().add(minutes, "m").format("hh:mm A");
+
+  console.log(remainder);
+  console.log(minutes);
+  console.log(arrival);
+
+  $("#trainTable > tBody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+frequency+"</td><td>"+arrival+"</td><td>"+minutes+"</td><td>");
+
+})
+  </script>
+
+
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
